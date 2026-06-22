@@ -108,22 +108,65 @@ class _InscripcionScreenState extends State<InscripcionScreen> {
                 ),
                 SizedBox(height: 15,),
                 TextFormField(
-                  controller:documentoController,
+                  controller:correoController,
                   decoration: InputDecoration(
-                    labelText: "Documento",
-                    prefixIcon: Icon(Icons.badge),
+                    labelText: "Correo",
+                    prefixIcon: Icon(Icons.event),
                     border: OutlineInputBorder(),
                   ),
                   validator:(value){
                     if(value == null || value.isEmpty){
-                      return 'El documento no puede estar vacio';
+                      return 'El correo no puede estar vacio';
                     } 
-                    if (value.length < 6){
-                      return 'El documento debe tener más de 6 caracteres';
+                    if (!validarCorreo(value)){
+                      return 'El correo no es valido';        
                     }
                     return null;
                   }
                 ),
+                SizedBox(height: 15,),
+                TextFormField(
+                  controller:actividadController,
+                  decoration: InputDecoration(
+                    labelText: "Actividad",
+                    prefixIcon: Icon(Icons.event),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator:(value){
+                    if(value == null || value.isEmpty){
+                      return 'La actividad no puede estar vacia';
+                    } 
+
+                    return null;
+                  }
+                ),
+                SizedBox(height: 25,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: registrar,
+                      child: Text("Registrar"),
+                    ),
+                    SizedBox(width: 5,),
+                    ElevatedButton(
+                      onPressed: limpiar,
+                      child: Text("Limpiar"),
+                    ),          
+                  ],
+                ),
+                SizedBox(height: 25,),
+                if (resultado.isNotEmpty)
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade100,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.green,),
+                    ),
+                    child: Text(resultado, style : TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  )
+                  
               ],
             ),
           ),
